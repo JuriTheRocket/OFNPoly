@@ -639,10 +639,15 @@
     if (!desc) return alert("Please add a clarification.");
     if (!Number.isFinite(days) || days < 1 || days > 365) return alert("Time span must be 1–365 days.");
 
-    await api("/api/create", {
-      method: "POST",
-      body: JSON.stringify({ title, desc, days, category: cCat.value })
-    });
+   await api("/api/admin_resolve", {
+  method:"POST",
+  body: JSON.stringify({ id, outcome: act === "resolveYes" ? "YES" : "NO" })
+});
+
+await api("/api/admin_ban", {
+  method:"POST",
+  body: JSON.stringify({ id })
+});
 
     cTitle.value = "";
     cDesc.value = "";
@@ -727,4 +732,5 @@
 })();
 </script>
 </body>
+
 </html>
